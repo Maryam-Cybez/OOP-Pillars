@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOP in JavaScript - 4 Pillars</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: white;
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #60a5fa;
+        }
+
+        p {
+            text-align: center;
+            color: #cbd5e1;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 30px 0;
+        }
+
+        button {
+            background: #1e293b;
+            color: white;
+            border: 1px solid #475569;
+            padding: 14px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        button:hover, button.active {
+            background: #2563eb;
+            border-color: #3b82f6;
+        }
+
+        .editor, .output {
+            background: #111827;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .header {
+            background: #1e293b;
+            padding: 15px;
+            font-weight: bold;
+            border-bottom: 1px solid #334155;
+        }
+
+        pre {
+            padding: 20px;
+            margin: 0;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #a7f3d0;
+            min-height: 200px;
+        }
+
+        .actions {
+            padding: 12px;
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            border-top: 1px solid #334155;
+        }
+
+        .run {
+            background: #2563eb;
+        }
+
+        .clear {
+            background: #475569;
+        }
+
+        #result {
+            color: #86efac;
+            min-height: 100px;
+        }
+
+        .description {
+            color: #cbd5e1;
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>OOP in JavaScript - 4 Pillars</h1>
+    <p>Click any example to view and run its program</p>
+
+    <div class="buttons">
+        <button class="active" onclick="selectExample('encapsulation', this)">
+            Encapsulation
+        </button>
+
+        <button onclick="selectExample('inheritance', this)">
+            Inheritance
+        </button>
+
+        <button onclick="selectExample('polymorphism', this)">
+            Polymorphism
+        </button>
+
+        <button onclick="selectExample('abstraction', this)">
+            Abstraction
+        </button>
+    </div>
+
+    <div class="description" id="description">
+        Encapsulation: Wrapping data and methods inside a class
+        and controlling access to data.
+    </div>
+
+    <div class="editor">
+        <div class="header">JavaScript Code</div>
+        <pre id="code"></pre>
+        <div class="actions">
+            <button class="run" onclick="runExample()">
+                ▶ Run Example
+            </button>
+            <button class="clear" onclick="clearOutput()">
+                Clear Output
+            </button>
+        </div>
+    </div>
+
+    <div class="output">
+        <div class="header">Output</div>
+        <pre id="result">Click Run Example to see the output.</pre>
+    </div>
+
+</div>
+
+<script>
+    // All four OOP examples
+    const examples = {
+
+        encapsulation: {
+            description:
+                "Encapsulation: Wrapping data and methods inside a class and controlling access to data.",
+
+            code: `// 1. Encapsulation Example
+
+class BankAccount {
+    #balance = 0;
+
+    deposit(amount) {
+        this.#balance += amount;
+        console.log("Deposited:", amount);
+    }
+
+    getBalance() {
+        return this.#balance;
+    }
+}
+
+const account = new BankAccount();
+
+account.deposit(5000);
+console.log("Balance:", account.getBalance());`,
+
+            run: function() {
+                class BankAccount {
+                    #balance = 0;
+
+                    deposit(amount) {
+                        this.#balance += amount;
+                        console.log("Deposited:", amount);
+                    }
+
+                    getBalance() {
+                        return this.#balance;
+                    }
+                }
+
+                const account = new BankAccount();
+                account.deposit(5000);
+                console.log("Balance:", account.getBalance());
+            }
+        },
+
+        inheritance: {
+            description:
+                "Inheritance: One class can inherit properties and methods from another class using extends.",
+
+            code: `// 2. Inheritance Example
+
+class Animal {
+    eat() {
+        console.log("Animal is eating");
+    }
+}
+
+class Dog extends Animal {
+    bark() {
+        console.log("Dog is barking");
+    }
+}
+
+const dog = new Dog();
+
+dog.eat();
+dog.bark();`,
+
+            run: function() {
+                class Animal {
+                    eat() {
+                        console.log("Animal is eating");
+                    }
+                }
+
+                class Dog extends Animal {
+                    bark() {
+                        console.log("Dog is barking");
+                    }
+                }
+
+                const dog = new Dog();
+                dog.eat();
+                dog.bark();
+            }
+        },
+
+        polymorphism: {
+            description:
+                "Polymorphism: Different classes can use the same method name but provide different behaviors.",
+
+            code: `// 3. Polymorphism Example
+
+class Animal {
+    sound() {
+        console.log("Animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    sound() {
+        console.log("Dog barks");
+    }
+}
+
+class Cat extends Animal {
+    sound() {
+        console.log("Cat meows");
+    }
+}
+
+const dog = new Dog();
+const cat = new Cat();
+
+dog.sound();
+cat.sound();`,
+
+            run: function() {
+                class Animal {
+                    sound() {
+                        console.log("Animal makes a sound");
+                    }
+                }
+
+                class Dog extends Animal {
+                    sound() {
+                        console.log("Dog barks");
+                    }
+                }
+
+                class Cat extends Animal {
+                    sound() {
+                        console.log("Cat meows");
+                    }
+                }
+
+                const dog = new Dog();
+                const cat = new Cat();
+
+                dog.sound();
+                cat.sound();
+            }
+        },
+
+        abstraction: {
+            description:
+                "Abstraction: Hiding implementation details and exposing essential functionality through methods.",
+
+            code: `// 4. Abstraction Example
+
+class Shape {
+    calculateArea() {
+        throw new Error(
+            "Method must be implemented"
+        );
+    }
+}
+
+class Rectangle extends Shape {
+    constructor(length, width) {
+        super();
+        this.length = length;
+        this.width = width;
+    }
+
+    calculateArea() {
+        return this.length * this.width;
+    }
+}
+
+const rectangle = new Rectangle(10, 5);
+
+console.log(
+    "Area of Rectangle:",
+    rectangle.calculateArea()
+);`,
+
+            run: function() {
+                class Shape {
+                    calculateArea() {
+                        throw new Error(
+                            "Method must be implemented"
+                        );
+                    }
+                }
+
+                class Rectangle extends Shape {
+                    constructor(length, width) {
+                        super();
+                        this.length = length;
+                        this.width = width;
+                    }
+
+                    calculateArea() {
+                        return this.length * this.width;
+                    }
+                }
+
+                const rectangle = new Rectangle(10, 5);
+
+                console.log(
+                    "Area of Rectangle:",
+                    rectangle.calculateArea()
+                );
+            }
+        }
+    };
+
+    // Currently selected example
+    let currentExample = "encapsulation";
+
+    // Display selected example
+    function selectExample(name, button) {
+        currentExample = name;
+
+        document.querySelectorAll(".buttons button")
+            .forEach(btn => btn.classList.remove("active"));
+
+        button.classList.add("active");
+
+        document.getElementById("description").textContent =
+            examples[name].description;
+
+        document.getElementById("code").textContent =
+            examples[name].code;
+
+        document.getElementById("result").textContent =
+            "Click Run Example to see the output.";
+    }
+
+    // Run only the selected example
+    function runExample() {
+        const result = document.getElementById("result");
+        const logs = [];
+
+        const originalLog = console.log;
+
+        try {
+            console.log = (...args) => {
+                logs.push(
+                    args.map(value =>
+                        typeof value === "object"
+                            ? JSON.stringify(value)
+                            : String(value)
+                    ).join(" ")
+                );
+            };
+
+            examples[currentExample].run();
+
+            result.textContent = logs.join("\n") || "No output.";
+        } catch (error) {
+            result.textContent = "Error: " + error.message;
+        } finally {
+            console.log = originalLog;
+        }
+    }
+
+    // Clear output
+    function clearOutput() {
+        document.getElementById("result").textContent = "";
+    }
+
+    // Show first example on page load
+    document.getElementById("code").textContent =
+        examples.encapsulation.code;
+</script>
+
+</body>
+</html>
